@@ -1,0 +1,113 @@
+{%- comment -%}
+  Product accordions: Details, Materials and care, Size guide (rings and bracelets), Shipping and returns.
+  Product facts come from metafields filled from the supplier data:
+  custom.details (rich text), custom.material (single line), custom.size_guide (rich text).
+{%- endcomment -%}
+{%- liquid
+  assign product = closest.product
+  assign details = product.metafields.custom.details
+  assign material = product.metafields.custom.material.value
+  assign size_guide = product.metafields.custom.size_guide
+  assign needs_size_guide = false
+  if product.type == 'Rings' or product.type == 'Bracelets'
+    assign needs_size_guide = true
+  endif
+-%}
+<div class="lumi-accordions" {{ block.shopify_attributes }}>
+  {%- if details != blank -%}
+    <details class="lumi-accordions__row">
+      <summary>Details</summary>
+      <div class="lumi-accordions__body rte">{{ details | metafield_tag }}</div>
+    </details>
+  {%- endif -%}
+
+  <details class="lumi-accordions__row">
+    <summary>Materials and care</summary>
+    <div class="lumi-accordions__body rte">
+      {%- if material != blank -%}
+        <p>{{ material }}</p>
+      {%- endif -%}
+      {{ block.settings.care_text }}
+    </div>
+  </details>
+
+  {%- if needs_size_guide and size_guide != blank -%}
+    <details class="lumi-accordions__row">
+      <summary>Size guide</summary>
+      <div class="lumi-accordions__body rte">{{ size_guide | metafield_tag }}</div>
+    </details>
+  {%- endif -%}
+
+  <details class="lumi-accordions__row">
+    <summary>Shipping and returns</summary>
+    <div class="lumi-accordions__body rte">{{ block.settings.shipping_text }}</div>
+  </details>
+</div>
+
+{% stylesheet %}
+  .lumi-accordions__row {
+    border-bottom: 1px solid var(--stone-mist);
+  }
+
+  .lumi-accordions__row:first-child {
+    border-top: 1px solid var(--stone-mist);
+  }
+
+  .lumi-accordions__row summary {
+    list-style: none;
+    cursor: pointer;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+  }
+
+  .lumi-accordions__row summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .lumi-accordions__row summary::after {
+    content: '+';
+    font-weight: 400;
+    color: var(--warm-ink);
+  }
+
+  .lumi-accordions__row[open] summary::after {
+    content: '\2013';
+  }
+
+  .lumi-accordions__body {
+    padding-bottom: var(--space-16);
+    font-size: 15px;
+  }
+
+  .lumi-accordions__body p {
+    margin: 0 0 8px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Lumi product accordions",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "care_text",
+      "label": "Care",
+      "default": "<p>Keep pearls dry. Silver tarnishes in humidity, so store it dry and wipe it with the cloth in the box. Plated pieces wear at contact points. Only pieces marked water-safe are made for water.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "shipping_text",
+      "label": "Shipping and returns",
+      "default": "<p>Complimentary shipping to the US and Canada. Usually 5 to 8 business days in the US and 7 to 10 in Canada.</p><p>Change your mind within 7 days of delivery: return it unworn, in its original box, for store credit. Damaged, defective or incorrect: write to us within 10 days and we send a free replacement.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lumi product accordions"
+    }
+  ]
+}
+{% endschema %}

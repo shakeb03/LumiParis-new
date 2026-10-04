@@ -1,0 +1,274 @@
+/* Lumi Paris brand layer on top of Horizon. Tokens from the Store Build Brief. */
+:root {
+  --lumi-cream: #f7f2ea; /* page background */
+  --ivory-soft: #efe6d8; /* cards, bands */
+  --warm-ink: #1c1917; /* text, buttons */
+  --stone-text: #6b645f; /* secondary labels */
+  --stone-mist: #a8a29e; /* borders, dividers only, never text */
+  --champagne: #c4a574; /* hairlines, icons only, never text or large fills */
+  --jardin: #2c3a35; /* rare accent, one element per page */
+  --font-lumi-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-lumi-body: 'Outfit', system-ui, sans-serif;
+  --radius: 2px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-40: 40px;
+  --space-64: 64px;
+
+  /* Point Horizon's font families at the brand fonts */
+  --font-body--family: var(--font-lumi-body);
+  --font-body--weight: 400;
+  --font-body--style: normal;
+  --font-subheading--family: var(--font-lumi-body);
+  --font-subheading--weight: 400;
+  --font-subheading--style: normal;
+  --font-heading--family: var(--font-lumi-heading);
+  --font-heading--weight: 500;
+  --font-heading--style: normal;
+  --font-accent--family: var(--font-lumi-heading);
+  --font-accent--weight: 500;
+  --font-accent--style: normal;
+}
+
+body {
+  background-color: var(--lumi-cream);
+  color: var(--warm-ink);
+  font-family: var(--font-lumi-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+.h1,
+.h2,
+.h3,
+.lumi-heading {
+  font-family: var(--font-lumi-heading);
+  font-weight: 500;
+}
+
+/* Prices always in Outfit 400 */
+.price,
+product-price,
+.lumi-price {
+  font-family: var(--font-lumi-body);
+  font-weight: 400;
+}
+
+/* Small labels: Outfit caps, letter-spaced, Stone Text */
+.lumi-label {
+  font-family: var(--font-lumi-body);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--stone-text);
+  margin: 0;
+}
+
+/* Buttons: Warm Ink, Lumi Cream text, Outfit 500, 52px, radius 2px */
+.button,
+.button-secondary,
+.lumi-button {
+  font-family: var(--font-lumi-body);
+  font-weight: 500;
+  text-transform: none;
+  min-height: 52px;
+  border-radius: var(--radius);
+}
+
+.lumi-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-24);
+  background-color: var(--warm-ink);
+  color: var(--lumi-cream);
+  border: 1px solid var(--warm-ink);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.lumi-button--secondary {
+  background-color: transparent;
+  color: var(--warm-ink);
+}
+
+@media screen and (max-width: 749px) {
+  .lumi-button {
+    width: 100%;
+  }
+}
+
+/* Visible focus ring everywhere */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--warm-ink);
+  outline-offset: 3px;
+}
+
+.lumi-button:focus-visible {
+  outline-color: var(--warm-ink);
+  box-shadow: 0 0 0 2px var(--lumi-cream) inset;
+}
+
+/* No sale styling anywhere */
+.compare-at-price,
+.color-custom-badge-sale {
+  display: none !important;
+}
+
+/* Shared section layout */
+.lumi-section {
+  padding-block: var(--space-40);
+  padding-inline: var(--space-16);
+}
+
+@media screen and (min-width: 750px) {
+  .lumi-section {
+    padding-block: var(--space-64);
+    padding-inline: var(--space-40);
+  }
+}
+
+.lumi-section__inner {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.lumi-section--band {
+  background-color: var(--ivory-soft);
+}
+
+.lumi-section__heading {
+  font-family: var(--font-lumi-heading);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1.1;
+  margin: 0 0 var(--space-24);
+}
+
+.lumi-rule {
+  border: 0;
+  border-top: 1px solid var(--champagne);
+  margin: var(--space-24) 0;
+}
+
+/* Rich text pages (About, Questions, Care, Shipping, Returns) */
+.rte details {
+  border-bottom: 1px solid var(--stone-mist);
+  padding-block: var(--space-16);
+}
+
+.rte details:first-of-type {
+  border-top: 1px solid var(--stone-mist);
+}
+
+.rte summary {
+  cursor: pointer;
+  font-weight: 500;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.rte details p {
+  margin-top: 8px;
+}
+
+/* Motion: keep it minimal for anyone who asks the OS for less */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Lumi product card (home edit row) */
+.lumi-card {
+  display: block;
+  color: var(--warm-ink);
+  text-decoration: none;
+}
+
+.lumi-card__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background-color: var(--ivory-soft);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.lumi-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lumi-card__badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: var(--lumi-cream);
+  padding: 4px 8px;
+  border-radius: var(--radius);
+}
+
+.lumi-card__info {
+  display: grid;
+  gap: 2px;
+  padding-top: 12px;
+}
+
+.lumi-card__material {
+  margin: 0;
+  font-size: 14px;
+  color: var(--stone-text);
+}
+
+/* Early access sign-up (home section and password page) */
+.lumi-early-access {
+  max-width: 36em;
+}
+
+.lumi-early-access__fields {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.lumi-early-access__input {
+  min-height: 52px;
+  padding: 0 var(--space-16);
+  border: 1px solid var(--stone-mist);
+  border-radius: var(--radius);
+  background-color: var(--lumi-cream);
+  color: var(--warm-ink);
+  font-family: var(--font-lumi-body);
+  font-size: 16px;
+}
+
+.lumi-early-access__consent,
+.lumi-early-access__error {
+  font-size: 13px;
+  color: var(--stone-text);
+  margin: 12px 0 0;
+}
+
+.lumi-early-access__error {
+  color: var(--warm-ink);
+}
+
+@media screen and (min-width: 750px) {
+  .lumi-early-access__fields {
+    grid-template-columns: 1fr auto;
+  }
+}

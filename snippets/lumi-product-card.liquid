@@ -1,0 +1,39 @@
+{%- comment -%}
+  Lumi product card: image, name, material line, price.
+  Material line reads the product metafield custom.material (exact wording from the supplier data).
+
+  Accepts:
+  - product: {Object}
+  - sizes: {String} image sizes attribute
+{%- endcomment -%}
+{%- liquid
+  assign material = product.metafields.custom.material.value
+  assign is_new = false
+  if product.tags contains 'new'
+    assign is_new = true
+  endif
+-%}
+<a class="lumi-card" href="{{ product.url }}">
+  <div class="lumi-card__media">
+    {%- if product.featured_media != blank -%}
+      {{
+        product.featured_media
+        | image_url: width: 900
+        | image_tag: widths: '300, 450, 600, 900', sizes: sizes, loading: 'lazy', alt: product.featured_media.alt
+      }}
+    {%- endif -%}
+    {%- if is_new -%}
+      <span class="lumi-card__badge lumi-label">New</span>
+    {%- endif -%}
+  </div>
+  <div class="lumi-card__info">
+    <span class="lumi-card__title">{{ product.title }}</span>
+    {%- if material != blank -%}
+      <span class="lumi-card__material">{{ material }}</span>
+    {%- endif -%}
+    <span class="lumi-card__price lumi-price">
+      {%- if product.price_varies -%}From {% endif -%}
+      {{- product.price | money_with_currency -}}
+    </span>
+  </div>
+</a>

@@ -1,0 +1,11 @@
+{%- comment -%}
+  Lumi Paris brand layer: fonts, design tokens and global overrides.
+  Rendered in layout/theme.liquid and layout/password.liquid after Horizon's own variables.
+{%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Outfit:wght@400;500&display=swap"
+>
+{{ 'lumi.css' | asset_url | stylesheet_tag }}

@@ -1,12 +1,4 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */{
+{
   "sections": {
     "section": {
       "type": "section",
@@ -190,11 +182,18 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "lumi_material": {
+              "type": "custom-liquid",
+              "settings": {
+                "custom_liquid": "{%- assign lumi_material = closest.product.metafields.custom.material.value -%}{%- if lumi_material != blank -%}<p class=\"lumi-card__material\">{{ lumi_material }}</p>{%- endif -%}"
+              }
             }
           },
           "block_order": [
             "card-gallery",
             "product_title_4nY4eT",
+            "lumi_material",
             "price_EzJzMm"
           ]
         }

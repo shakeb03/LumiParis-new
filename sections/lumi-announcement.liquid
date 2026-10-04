@@ -1,0 +1,61 @@
+{%- comment -%}
+  One-line announcement bar. Canadian visitors see the Canada price line instead of the default.
+{%- endcomment -%}
+{%- liquid
+  assign message = section.settings.default_text
+  if localization.country.iso_code == 'CA' and section.settings.canada_text != blank
+    assign message = section.settings.canada_text
+  endif
+-%}
+{%- if message != blank -%}
+  <div class="lumi-announcement" role="region" aria-label="{{ 'Announcement' | escape }}">
+    <p class="lumi-announcement__text">{{ message }}</p>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .lumi-announcement {
+    background-color: var(--ivory-soft);
+    border-bottom: 1px solid var(--stone-mist);
+    padding: 10px 16px;
+    text-align: center;
+  }
+
+  .lumi-announcement__text {
+    margin: 0;
+    font-family: var(--font-lumi-body);
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--warm-ink);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Lumi announcement",
+  "class": "lumi-announcement-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "default_text",
+      "label": "Message",
+      "default": "Complimentary shipping to the US and Canada"
+    },
+    {
+      "type": "text",
+      "id": "canada_text",
+      "label": "Message for Canada",
+      "info": "Shown only to visitors in the Canada market.",
+      "default": "Canada price: the same number as our US price, in Canadian dollars. Complimentary shipping."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lumi announcement"
+    }
+  ]
+}
+{% endschema %}

@@ -1,12 +1,4 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */{
+{
   "sections": {
     "main": {
       "type": "product-information",
@@ -133,7 +125,7 @@
                     "max_width": "normal",
                     "alignment": "left",
                     "type_preset": "h3",
-                    "font": "var(--font-body--family)",
+                    "font": "var(--font-heading--family)",
                     "font_size": "1rem",
                     "line_height": "normal",
                     "letter_spacing": "normal",
@@ -171,11 +163,19 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {}
+                },
+                "lumi_canada_price": {
+                  "type": "lumi-canada-price",
+                  "settings": {
+                    "label": "Canada price",
+                    "line": "The same number as our US price, in Canadian dollars."
+                  }
                 }
               },
               "block_order": [
                 "text_xrnftG",
-                "price_tVjtKg"
+                "price_tVjtKg",
+                "lumi_canada_price"
               ]
             },
             "divider_VJhene": {
@@ -298,14 +298,24 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "lumi_reassurance": {
+              "type": "lumi-reassurance",
+              "settings": {}
+            },
+            "lumi_accordions": {
+              "type": "lumi-product-accordions",
+              "settings": {}
             }
           },
           "block_order": [
             "group_icgrde",
             "divider_VJhene",
+            "text_aEtTtq",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
-            "text_aEtTtq"
+            "lumi_reassurance",
+            "lumi_accordions"
           ]
         }
       },
@@ -331,7 +341,7 @@
           "type": "text",
           "name": "t:names.header",
           "settings": {
-            "text": "<h3>You may also like </h3>",
+            "text": "<h3>Wear it with</h3>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -451,7 +461,7 @@
         "product": "{{ closest.product }}",
         "recommendation_type": "related",
         "layout_type": "grid",
-        "carousel_on_mobile": false,
+        "carousel_on_mobile": true,
         "max_products": 4,
         "columns": 4,
         "mobile_columns": "2",
