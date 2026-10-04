@@ -1,5 +1,5 @@
 {%- comment -%}
-  Home hero: one soft-light image. Until the AI imagery is approved it shows an Ivory Soft block.
+  Home hero: one soft-light image behind a short text panel. Until the AI imagery is approved the media area is an Ivory Soft block.
 {%- endcomment -%}
 <section class="lumi-hero">
   <div class="lumi-hero__media">
@@ -33,15 +33,23 @@
 </section>
 
 {% stylesheet %}
+  /* Text sits in a Lumi Cream panel over the media area, so the message and button show on
+     first load, and an image set later fills the same box behind it with no layout change. */
   .lumi-hero {
-    display: grid;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    height: 60vh;
+    height: 60svh;
+    min-height: 420px;
     background-color: var(--ivory-soft);
+    overflow: hidden;
   }
 
   .lumi-hero__media {
-    aspect-ratio: 4 / 5;
+    position: absolute;
+    inset: 0;
     background-color: var(--ivory-soft);
-    overflow: hidden;
   }
 
   .lumi-hero__image {
@@ -52,8 +60,12 @@
   }
 
   .lumi-hero__content {
-    padding: var(--space-40) var(--space-16);
+    position: relative;
+    width: calc(100% - 2 * var(--space-16));
+    margin: var(--space-16);
+    padding: var(--space-24) var(--space-16);
     background-color: var(--lumi-cream);
+    border-radius: var(--radius);
   }
 
   .lumi-hero__heading {
@@ -61,30 +73,26 @@
     font-weight: 500;
     font-size: 40px;
     line-height: 1.05;
-    margin: 0 0 var(--space-16);
+    margin: 0 0 12px;
   }
 
   .lumi-hero__text {
-    margin: 0 0 var(--space-24);
+    margin: 0 0 var(--space-16);
     max-width: 32em;
   }
 
   @media screen and (min-width: 750px) {
     .lumi-hero {
-      grid-template-columns: 1fr 1fr;
-      align-items: stretch;
-    }
-
-    .lumi-hero__media {
-      aspect-ratio: auto;
-      min-height: 70vh;
+      height: 70vh;
+      height: 70svh;
+      min-height: 520px;
     }
 
     .lumi-hero__content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: var(--space-64);
+      width: auto;
+      max-width: 520px;
+      margin: var(--space-40);
+      padding: var(--space-40);
     }
 
     .lumi-hero__heading {

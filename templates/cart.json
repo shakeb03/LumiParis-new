@@ -1,12 +1,4 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */{
+{
   "sections": {
     "cart-section": {
       "type": "main-cart",
@@ -15,7 +7,7 @@
           "type": "_cart-title",
           "static": true,
           "settings": {
-            "title": "Cart",
+            "title": "Bag",
             "show_count": true,
             "type_preset": "h4",
             "alignment": "left",
@@ -46,7 +38,7 @@
           "static": true,
           "settings": {
             "extend_summary": true,
-            "background_color": "{{ settings.color_palette.color2 }}",
+            "background_color": "#EFE6D8",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
@@ -106,7 +98,7 @@
                 "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "h4",
-                "font": "var(--font-body--family)",
+                "font": "var(--font-heading--family)",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
