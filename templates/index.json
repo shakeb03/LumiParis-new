@@ -6,7 +6,11 @@
         "heading": "Wear the light.",
         "text": "Luminous everyday jewelry, meant to be lived in.",
         "button_label": "Shop the edit",
-        "button_link": "shopify://collections/all"
+        "button_link": "shopify://collections/all",
+        "image": "shopify://shop_images/lumi_hero_collarbone_poster_20261004_v1.jpg",
+        "image_mobile": "shopify://shop_images/lumi_hero_collarbone_mobile-poster_20261004_v1.jpg",
+        "video_url": "https://cdn.shopify.com/s/files/1/0821/5864/9571/files/lumi_hero_collarbone_desktop-loop_20261004_v1.mp4?v=1791082675",
+        "video_url_mobile": "https://cdn.shopify.com/s/files/1/0821/5864/9571/files/lumi_hero_collarbone_mobile-loop_20261004_v1.mp4?v=1791082675"
       }
     },
     "categories": {

@@ -13,7 +13,8 @@ Horizon 4.2.0 (Shopify's free theme) with a Lumi Paris brand layer on top. It mi
 | `snippets/lumi-head.liquid` | Loads Cormorant Garamond 500 and Outfit 400/500, and `assets/lumi.css`. Rendered in both layouts |
 | `assets/lumi.css` | Design tokens, fonts, buttons, focus ring, labels, cards, sign-up form; hides sale styling |
 | `sections/lumi-announcement.liquid` | One-line bar; Canadian visitors see the Canada price line |
-| `sections/lumi-hero.liquid` | "Wear the light." hero; Ivory Soft block until AI imagery is approved |
+| `sections/lumi-hero.liquid` | "Wear the light." hero: muted looping video (desktop and 4:5 phone files) with a still poster; text on a cream panel beside the video on desktop, below it on phones; pause button; still only for reduced motion |
+| `sections/lumi-about.liquid` + `templates/page.about.json` | About page set as a letter: salutation, the name line between hairlines, sign-off. Copy is edited in Pages > About |
 | `sections/lumi-category-tiles.liquid` | Four category tiles |
 | `sections/lumi-edit.liquid` + `snippets/lumi-product-card.liquid` | The edit: 4 to 6 products, swipe row on mobile |
 | `sections/lumi-facts.liquid` | Three material and care facts; `[FACT FROM BRANVAS DATA]` placeholders only show in the theme editor |
@@ -35,6 +36,8 @@ Edited Horizon files: `layout/theme.liquid` and `layout/password.liquid` (one li
 - Collections: `earrings`, `necklaces`, `rings`, `bracelets` (smart, by product type), `gifts` (tag `gift`), `archive` (tag `archive`)
 - Product metafields (create definitions before importing the catalog): `custom.material` (single line text, exact supplier wording), `custom.details` (rich text), `custom.size_guide` (rich text)
 - Logo file: `shopify://shop_images/lumi-logo-header.png`
+- Hero media in Content > Files: `lumi_hero_collarbone_desktop-loop_20261004_v1.mp4`, `lumi_hero_collarbone_mobile-loop_20261004_v1.mp4`, posters `lumi_hero_collarbone_poster_20261004_v1.jpg` and `lumi_hero_collarbone_mobile-poster_20261004_v1.jpg`
+- About page uses template suffix `about`
 
 ## Syncing to the store
 

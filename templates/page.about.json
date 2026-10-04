@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "lumi-about",
+      "settings": {
+        "heading": "About Lumi Paris",
+        "link_label": "Shop the edit",
+        "link": "shopify://collections/all"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
