@@ -1,0 +1,82 @@
+{%- comment -%}
+  Inline early access sign-up. No discount, no popup. Signs people up as Shopify customers
+  with marketing consent and the tag "early-access".
+{%- endcomment -%}
+<section class="lumi-section lumi-section--band" id="early-access">
+  <div class="lumi-section__inner lumi-early-access">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="lumi-section__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- assign form_id = 'LumiEarlyAccess-' | append: section.id -%}
+    {%- form 'customer', id: form_id, class: 'lumi-early-access__form' -%}
+      <input type="hidden" name="contact[tags]" value="early-access,newsletter">
+      {%- if form.posted_successfully? -%}
+        <p class="lumi-early-access__message" role="status">{{ section.settings.success_text }}</p>
+      {%- else -%}
+        <label class="lumi-label" for="LumiEarlyAccessEmail-{{ section.id }}">Email</label>
+        <div class="lumi-early-access__fields">
+          <input
+            class="lumi-early-access__input"
+            id="LumiEarlyAccessEmail-{{ section.id }}"
+            type="email"
+            name="contact[email]"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            required
+            {% if form.errors %}
+              aria-invalid="true" aria-describedby="LumiEarlyAccessError-{{ section.id }}"
+            {% endif %}
+          >
+          <button class="lumi-button" type="submit">{{ section.settings.button_label }}</button>
+        </div>
+        {%- if form.errors -%}
+          <p class="lumi-early-access__error" id="LumiEarlyAccessError-{{ section.id }}" role="alert">
+            {{ form.errors.translated_fields.email | capitalize }}
+            {{ form.errors.messages.email }}
+          </p>
+        {%- endif -%}
+        {%- if section.settings.consent_text != blank -%}
+          <p class="lumi-early-access__consent">{{ section.settings.consent_text }}</p>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lumi early access",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Be first to see new pieces."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Join the list"
+    },
+    {
+      "type": "text",
+      "id": "consent_text",
+      "label": "Consent line",
+      "default": "By joining, you agree to receive email from Lumi Paris. Unsubscribe at any time."
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Success message",
+      "default": "Thank you. You're on the list."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lumi early access"
+    }
+  ]
+}
+{% endschema %}

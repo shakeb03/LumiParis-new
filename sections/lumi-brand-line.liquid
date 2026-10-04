@@ -1,0 +1,76 @@
+{%- comment -%}
+  The approved name line, word for word.
+{%- endcomment -%}
+<section class="lumi-section">
+  <div class="lumi-section__inner lumi-brand-line">
+    <hr class="lumi-rule" aria-hidden="true">
+    <p class="lumi-brand-line__text">{{ section.settings.text }}</p>
+    {%- if section.settings.link_label != blank and section.settings.link != blank -%}
+      <a class="lumi-brand-line__link" href="{{ section.settings.link }}">{{ section.settings.link_label }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .lumi-brand-line {
+    max-width: 40em;
+    text-align: center;
+  }
+
+  .lumi-brand-line .lumi-rule {
+    width: 48px;
+    margin-inline: auto;
+  }
+
+  .lumi-brand-line__text {
+    font-family: var(--font-lumi-heading);
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.25;
+    margin: 0 0 var(--space-24);
+  }
+
+  .lumi-brand-line__link {
+    color: var(--warm-ink);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .lumi-brand-line__text {
+      font-size: 36px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Lumi brand line",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Line",
+      "info": "Approved line. Keep it word for word.",
+      "default": "Lumi comes from lumière: light. Paris is how we look at jewelry, not where we're based."
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "About Lumi Paris"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lumi brand line"
+    }
+  ]
+}
+{% endschema %}

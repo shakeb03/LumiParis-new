@@ -1,0 +1,46 @@
+{%- comment -%}
+  Canada price label. Shown only to visitors in the Canada market. Never a strikethrough or sale.
+{%- endcomment -%}
+{%- if localization.country.iso_code == 'CA' -%}
+  <div class="lumi-canada-price" {{ block.shopify_attributes }}>
+    <p class="lumi-label">{{ block.settings.label }}</p>
+    <p class="lumi-canada-price__line">{{ block.settings.line }}</p>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .lumi-canada-price .lumi-label {
+    margin: 0;
+  }
+
+  .lumi-canada-price__line {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: var(--stone-text);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Lumi Canada price",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Canada price"
+    },
+    {
+      "type": "text",
+      "id": "line",
+      "label": "Line",
+      "default": "The same number as our US price, in Canadian dollars."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lumi Canada price"
+    }
+  ]
+}
+{% endschema %}

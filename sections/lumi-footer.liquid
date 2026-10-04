@@ -1,0 +1,207 @@
+{%- comment -%}
+  Lumi footer: help links, brand links, contact email, social handles and Shopify policies.
+  No address is shown until a real one exists.
+{%- endcomment -%}
+<div class="lumi-footer">
+  <div class="lumi-footer__inner">
+    <div class="lumi-footer__brand">
+      <p class="lumi-footer__tagline">{{ section.settings.tagline }}</p>
+      {%- if section.settings.email != blank -%}
+        <p class="lumi-footer__contact">
+          <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+        </p>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.menu_1 != blank -%}
+      <nav class="lumi-footer__nav" aria-label="{{ section.settings.menu_1.title | escape }}">
+        <p class="lumi-label">{{ section.settings.menu_1_heading }}</p>
+        <ul role="list">
+          {%- for link in section.settings.menu_1.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+    {%- if section.settings.menu_2 != blank -%}
+      <nav class="lumi-footer__nav" aria-label="{{ section.settings.menu_2.title | escape }}">
+        <p class="lumi-label">{{ section.settings.menu_2_heading }}</p>
+        <ul role="list">
+          {%- for link in section.settings.menu_2.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <nav class="lumi-footer__nav" aria-label="Follow">
+      <p class="lumi-label">Follow</p>
+      <ul role="list">
+        {%- if section.settings.instagram_url != blank -%}
+          <li><a href="{{ section.settings.instagram_url }}" rel="noopener" target="_blank">Instagram</a></li>
+        {%- endif -%}
+        {%- if section.settings.tiktok_url != blank -%}
+          <li><a href="{{ section.settings.tiktok_url }}" rel="noopener" target="_blank">TikTok</a></li>
+        {%- endif -%}
+        {%- if section.settings.pinterest_url != blank -%}
+          <li><a href="{{ section.settings.pinterest_url }}" rel="noopener" target="_blank">Pinterest</a></li>
+        {%- endif -%}
+      </ul>
+    </nav>
+  </div>
+
+  <div class="lumi-footer__bottom">
+    <ul class="lumi-footer__policies" role="list">
+      {%- for policy in shop.policies -%}
+        {%- if policy != blank -%}
+          <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+    <p class="lumi-footer__copyright">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+  </div>
+</div>
+
+{% stylesheet %}
+  .lumi-footer {
+    background-color: var(--ivory-soft);
+    border-top: 1px solid var(--stone-mist);
+    padding: var(--space-40) var(--space-16) var(--space-24);
+    color: var(--warm-ink);
+  }
+
+  .lumi-footer a {
+    color: var(--warm-ink);
+    text-decoration: none;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .lumi-footer a:hover {
+    text-decoration: underline;
+  }
+
+  .lumi-footer__inner,
+  .lumi-footer__bottom {
+    max-width: 1200px;
+    margin-inline: auto;
+  }
+
+  .lumi-footer__inner {
+    display: grid;
+    gap: var(--space-24);
+  }
+
+  .lumi-footer__tagline {
+    font-family: var(--font-lumi-heading);
+    font-weight: 500;
+    font-size: 28px;
+    margin: 0;
+  }
+
+  .lumi-footer__contact {
+    margin: 8px 0 0;
+  }
+
+  .lumi-footer__nav ul,
+  .lumi-footer__policies {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+  }
+
+  .lumi-footer__bottom {
+    border-top: 1px solid var(--stone-mist);
+    margin-top: var(--space-40);
+    padding-top: var(--space-16);
+    font-size: 13px;
+    color: var(--stone-text);
+  }
+
+  .lumi-footer__policies {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--space-16);
+  }
+
+  .lumi-footer__copyright {
+    margin: 8px 0 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .lumi-footer {
+      padding: var(--space-64) var(--space-40) var(--space-24);
+    }
+
+    .lumi-footer__inner {
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: var(--space-40);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Lumi footer",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Wear the light."
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Contact email",
+      "default": "hello@thelumiparis.com"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_heading",
+      "label": "First menu heading",
+      "default": "Help"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "First menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_heading",
+      "label": "Second menu heading",
+      "default": "Lumi Paris"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Second menu"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok"
+    },
+    {
+      "type": "url",
+      "id": "pinterest_url",
+      "label": "Pinterest"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lumi footer"
+    }
+  ]
+}
+{% endschema %}

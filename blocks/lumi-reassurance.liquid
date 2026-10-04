@@ -1,0 +1,59 @@
+{%- comment -%}
+  Reassurance row under Add to bag. Only promises that are confirmed in the policies.
+{%- endcomment -%}
+<ul class="lumi-reassurance" role="list" {{ block.shopify_attributes }}>
+  {%- assign items = block.settings.items | newline_to_br | split: '<br />' -%}
+  {%- for item in items -%}
+    {%- assign item_text = item | strip -%}
+    {%- if item_text != blank -%}
+      <li class="lumi-reassurance__item">{{ item_text }}</li>
+    {%- endif -%}
+  {%- endfor -%}
+</ul>
+
+{% stylesheet %}
+  .lumi-reassurance {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-16) 0;
+    border-top: 1px solid var(--stone-mist);
+    border-bottom: 1px solid var(--stone-mist);
+    display: grid;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .lumi-reassurance__item {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+
+  .lumi-reassurance__item::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 12px;
+    border-top: 1px solid var(--champagne);
+    transform: translateY(-4px);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Lumi reassurance",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "items",
+      "label": "Items",
+      "info": "One per line.",
+      "default": "Complimentary shipping\nDelivery 5 to 8 days US, 7 to 10 days Canada\n7-day returns for store credit\nGift-ready box"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lumi reassurance"
+    }
+  ]
+}
+{% endschema %}

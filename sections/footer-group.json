@@ -1,0 +1,23 @@
+{
+  "type": "footer",
+  "name": "t:names.footer",
+  "sections": {
+    "lumi_footer": {
+      "type": "lumi-footer",
+      "settings": {
+        "tagline": "Wear the light.",
+        "email": "hello@thelumiparis.com",
+        "menu_1_heading": "Help",
+        "menu_1": "lumi-build-help",
+        "menu_2_heading": "Lumi Paris",
+        "menu_2": "lumi-build-brand",
+        "instagram_url": "https://www.instagram.com/the.lumiparis/",
+        "tiktok_url": "https://www.tiktok.com/@lumiparis",
+        "pinterest_url": "https://www.pinterest.com/lumiparis/"
+      }
+    }
+  },
+  "order": [
+    "lumi_footer"
+  ]
+}

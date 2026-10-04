@@ -1,0 +1,125 @@
+{
+  "sections": {
+    "hero": {
+      "type": "lumi-hero",
+      "settings": {
+        "heading": "Wear the light.",
+        "text": "Luminous everyday jewelry, meant to be lived in.",
+        "button_label": "Shop the edit",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "categories": {
+      "type": "lumi-category-tiles",
+      "settings": {
+        "heading": ""
+      },
+      "blocks": {
+        "tile_earrings": {
+          "type": "tile",
+          "settings": {
+            "collection": "earrings",
+            "label": "Earrings"
+          }
+        },
+        "tile_necklaces": {
+          "type": "tile",
+          "settings": {
+            "collection": "necklaces",
+            "label": "Necklaces"
+          }
+        },
+        "tile_rings": {
+          "type": "tile",
+          "settings": {
+            "collection": "rings",
+            "label": "Rings"
+          }
+        },
+        "tile_bracelets": {
+          "type": "tile",
+          "settings": {
+            "collection": "bracelets",
+            "label": "Bracelets"
+          }
+        }
+      },
+      "block_order": [
+        "tile_earrings",
+        "tile_necklaces",
+        "tile_rings",
+        "tile_bracelets"
+      ]
+    },
+    "edit": {
+      "type": "lumi-edit",
+      "settings": {
+        "heading": "The edit",
+        "max_products": 6,
+        "link_label": "Shop all"
+      }
+    },
+    "facts": {
+      "type": "lumi-facts",
+      "settings": {
+        "heading": "What it is made of"
+      },
+      "blocks": {
+        "fact_1": {
+          "type": "fact",
+          "settings": {
+            "label": "",
+            "text": "[FACT FROM BRANVAS DATA]"
+          }
+        },
+        "fact_2": {
+          "type": "fact",
+          "settings": {
+            "label": "",
+            "text": "[FACT FROM BRANVAS DATA]"
+          }
+        },
+        "fact_3": {
+          "type": "fact",
+          "settings": {
+            "label": "",
+            "text": "[FACT FROM BRANVAS DATA]"
+          }
+        }
+      },
+      "block_order": [
+        "fact_1",
+        "fact_2",
+        "fact_3"
+      ]
+    },
+    "brand_line": {
+      "type": "lumi-brand-line",
+      "settings": {
+        "text": "Lumi comes from lumière: light. Paris is how we look at jewelry, not where we're based.",
+        "link_label": "About Lumi Paris",
+        "link": "shopify://pages/about"
+      }
+    },
+    "reviews": {
+      "type": "lumi-reviews",
+      "settings": {
+        "enabled": false,
+        "heading": "From people who wear it"
+      }
+    },
+    "early_access": {
+      "type": "lumi-early-access",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "edit",
+    "facts",
+    "brand_line",
+    "reviews",
+    "early_access"
+  ]
+}
