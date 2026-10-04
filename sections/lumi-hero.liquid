@@ -1,22 +1,99 @@
 {%- comment -%}
-  Home hero: one soft-light image. Until the AI imagery is approved it shows an Ivory Soft block.
+  Home hero: a muted looping video (desktop and 4:5 mobile files) with a still poster as the first
+  paint and the fallback. Text sits on a Lumi Cream panel beside the media on desktop and below it
+  on phones, never over the image. Without media the area is an Ivory Soft block.
+  Visitors who ask for reduced motion get the still only.
 {%- endcomment -%}
-<section class="lumi-hero">
+{%- liquid
+  assign poster = section.settings.image
+  assign poster_mobile = section.settings.image_mobile | default: poster
+  assign has_video = false
+  if section.settings.video_url != blank or section.settings.video_url_mobile != blank
+    assign has_video = true
+  endif
+  assign video_desktop = section.settings.video_url | default: section.settings.video_url_mobile
+  assign video_mobile = section.settings.video_url_mobile | default: section.settings.video_url
+-%}
+<section class="lumi-hero" id="LumiHero-{{ section.id }}">
   <div class="lumi-hero__media">
-    {%- if section.settings.image != blank -%}
-      {{
-        section.settings.image
-        | image_url: width: 2000
-        | image_tag:
-          widths: '600, 900, 1200, 1600, 2000',
-          sizes: '100vw',
-          loading: 'eager',
-          fetchpriority: 'high',
-          class: 'lumi-hero__image',
-          alt: section.settings.image.alt
-      }}
+    {%- if poster != blank -%}
+      <picture>
+        {%- if poster_mobile != poster -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ poster_mobile | image_url: width: 480 }} 480w, {{ poster_mobile | image_url: width: 720 }} 720w, {{ poster_mobile | image_url: width: 1080 }} 1080w"
+            sizes="100vw"
+          >
+        {%- endif -%}
+        {{
+          poster
+          | image_url: width: 2000
+          | image_tag:
+            widths: '600, 900, 1200, 1600, 2000',
+            sizes: '(min-width: 750px) 60vw, 100vw',
+            loading: 'eager',
+            fetchpriority: 'high',
+            class: 'lumi-hero__image',
+            alt: poster.alt
+        }}
+      </picture>
+    {%- endif -%}
+
+    {%- if has_video -%}
+      <video
+        class="lumi-hero__video"
+        muted
+        loop
+        playsinline
+        preload="none"
+        aria-hidden="true"
+        tabindex="-1"
+        data-src-desktop="{{ video_desktop }}"
+        data-src-mobile="{{ video_mobile }}"
+      ></video>
+      <button
+        class="lumi-hero__toggle"
+        type="button"
+        aria-label="Pause video"
+        data-label-pause="Pause video"
+        data-label-play="Play video"
+        hidden
+      >
+        <span class="lumi-hero__toggle-icon" aria-hidden="true"></span>
+      </button>
+      <script>
+        (function () {
+          var root = document.getElementById('LumiHero-{{ section.id }}');
+          if (!root) return;
+          var video = root.querySelector('.lumi-hero__video');
+          var toggle = root.querySelector('.lumi-hero__toggle');
+          if (!video || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var mobile = window.matchMedia('(max-width: 749px)').matches;
+          var src = mobile ? video.dataset.srcMobile : video.dataset.srcDesktop;
+          if (!src) return;
+          video.src = src;
+          video.addEventListener('playing', function () {
+            root.classList.add('lumi-hero--playing');
+          });
+          var attempt = video.play();
+          if (attempt && attempt.catch) attempt.catch(function () {});
+          toggle.hidden = false;
+          toggle.addEventListener('click', function () {
+            if (video.paused) {
+              video.play();
+              toggle.classList.remove('is-paused');
+              toggle.setAttribute('aria-label', toggle.dataset.labelPause);
+            } else {
+              video.pause();
+              toggle.classList.add('is-paused');
+              toggle.setAttribute('aria-label', toggle.dataset.labelPlay);
+            }
+          });
+        })();
+      </script>
     {%- endif -%}
   </div>
+
   <div class="lumi-hero__content">
     {%- if section.settings.heading != blank -%}
       <h1 class="lumi-hero__heading">{{ section.settings.heading }}</h1>
@@ -33,62 +110,142 @@
 </section>
 
 {% stylesheet %}
+  /* Phones: media on top, sized so the panel and button still fit the first screen. */
   .lumi-hero {
-    display: grid;
-    background-color: var(--ivory-soft);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--lumi-cream);
   }
 
   .lumi-hero__media {
-    aspect-ratio: 4 / 5;
+    position: relative;
+    height: clamp(220px, calc(100vh - 330px), 62vh);
+    height: clamp(220px, calc(100svh - 330px), 62svh);
     background-color: var(--ivory-soft);
     overflow: hidden;
   }
 
-  .lumi-hero__image {
+  .lumi-hero__media picture {
+    display: contents;
+  }
+
+  .lumi-hero__image,
+  .lumi-hero__video {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center 35%;
     display: block;
   }
 
-  .lumi-hero__content {
-    padding: var(--space-40) var(--space-16);
+  .lumi-hero__video {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .lumi-hero--playing .lumi-hero__video {
+    opacity: 1;
+  }
+
+  .lumi-hero__toggle {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
     background-color: var(--lumi-cream);
+    color: var(--warm-ink);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.85;
+  }
+
+  .lumi-hero__toggle[hidden] {
+    display: none;
+  }
+
+  /* Pause icon: two bars; play icon: a triangle */
+  .lumi-hero__toggle-icon {
+    width: 10px;
+    height: 12px;
+    border-left: 3px solid currentColor;
+    border-right: 3px solid currentColor;
+  }
+
+  .lumi-hero__toggle.is-paused .lumi-hero__toggle-icon {
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 11px solid currentColor;
+    border-right: 0;
+    margin-left: 3px;
+  }
+
+  .lumi-hero__content {
+    padding: var(--space-24) var(--space-16);
   }
 
   .lumi-hero__heading {
     font-family: var(--font-lumi-heading);
     font-weight: 500;
-    font-size: 40px;
+    font-size: 38px;
     line-height: 1.05;
-    margin: 0 0 var(--space-16);
+    margin: 0 0 8px;
   }
 
   .lumi-hero__text {
-    margin: 0 0 var(--space-24);
+    margin: 0 0 var(--space-16);
     max-width: 32em;
   }
 
+  /* Desktop: cream panel on the left, media on the right. */
   @media screen and (min-width: 750px) {
     .lumi-hero {
-      grid-template-columns: 1fr 1fr;
-      align-items: stretch;
+      display: grid;
+      grid-template-columns: minmax(320px, 5fr) 7fr;
+      height: 70vh;
+      height: 70svh;
+      min-height: 520px;
     }
 
     .lumi-hero__media {
-      aspect-ratio: auto;
-      min-height: 70vh;
+      order: 2;
+      height: auto;
+    }
+
+    .lumi-hero__image,
+    .lumi-hero__video {
+      object-position: center;
     }
 
     .lumi-hero__content {
+      order: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: flex-start;
       padding: var(--space-64);
     }
 
     .lumi-hero__heading {
       font-size: 64px;
+      margin-bottom: 12px;
+    }
+
+    .lumi-hero__text {
+      margin-bottom: var(--space-24);
+    }
+
+    .lumi-hero__toggle {
+      right: 24px;
+      bottom: 24px;
     }
   }
 {% endstylesheet %}
@@ -100,8 +257,26 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Image",
-      "info": "Leave empty to show an Ivory Soft block until AI imagery is approved."
+      "label": "Still / poster",
+      "info": "First frame of the desktop video. Shown before the video plays, for reduced motion, and if no video is set."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Still / poster on phones",
+      "info": "First frame of the 4:5 mobile video."
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video (desktop)",
+      "info": "MP4 file URL from Content > Files. Muted, looping, no audio."
+    },
+    {
+      "type": "url",
+      "id": "video_url_mobile",
+      "label": "Video (phones)",
+      "info": "4:5 MP4 file URL from Content > Files."
     },
     {
       "type": "text",

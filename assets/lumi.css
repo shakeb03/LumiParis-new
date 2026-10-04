@@ -15,6 +15,9 @@
   --space-40: 40px;
   --space-64: 64px;
 
+  /* Horizon's muted text is ink at 60% (about 4.3:1 on cream); lift it to Stone Text contrast */
+  --opacity-muted-text: 0.75;
+
   /* Point Horizon's font families at the brand fonts */
   --font-body--family: var(--font-lumi-body);
   --font-body--weight: 400;
@@ -270,5 +273,29 @@ product-price,
 @media screen and (min-width: 750px) {
   .lumi-early-access__fields {
     grid-template-columns: 1fr auto;
+  }
+}
+
+/* Cart: wallets above the checkout button */
+.cart__ctas .additional-checkout-buttons {
+  order: -1;
+}
+
+/* Sticky Add to bag on phones: show the label instead of Horizon's icon-only square.
+   Selectors start with the element name so they outrank Horizon's section styles, which load later. */
+@media screen and (max-width: 749px) {
+  sticky-add-to-cart .sticky-add-to-cart__bar .add-to-cart-text__content {
+    display: initial;
+  }
+
+  sticky-add-to-cart .sticky-add-to-cart__bar .add-to-cart-text .svg-wrapper {
+    display: none;
+  }
+
+  sticky-add-to-cart .sticky-add-to-cart__bar .sticky-add-to-cart__button {
+    width: auto;
+    min-width: 140px;
+    min-height: 52px;
+    padding-inline: var(--space-24);
   }
 }
